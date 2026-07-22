@@ -3,7 +3,7 @@ import subprocess
 from mcp.server.fastmcp import FastMCP
 
 # Initialize FastMCP server
-mcp = FastMCP("weather")
+mcp = FastMCP("filesystem")
 
 @mcp.tool()
 async def create_file(file_name: str, directory: str = ".", content: str = "") -> str:
