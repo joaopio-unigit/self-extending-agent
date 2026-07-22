@@ -134,7 +134,7 @@ class MCPClient:
         """Connect (or reconnect) to an MCP server, cleanly replacing any existing session."""
 
         if server_name in self.server_exit_stacks:
-            print(f"↻ Restarting server '{server_name}'...")
+            print(f"Restarting server '{server_name}'...")
             await self.server_exit_stacks[server_name].aclose()
 
         is_python = server_script_path.endswith('.py')
