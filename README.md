@@ -9,6 +9,37 @@ This repository includes two core pieces:
 - an MCP client that coordinates the interaction between the user, an LLM, and available MCP servers
 - a basic MCP server that provides fundamental filesystem capabilities such as creating, reading, deleting files, and running terminal commands
 
+## Example included in this branch
+
+This branch includes a concrete example of the evolutionary workflow in action. The full interaction is recorded in `evo/output.txt`, where the client starts without weather or exchange-rate capabilities, then creates and connects new MCP servers to fulfill the user’s requests.
+
+The example shows how the agent can:
+
+- detect that a needed capability is missing
+- create a new MCP server file
+- connect that server at runtime
+- immediately use the newly available tools
+
+In this example, the agent generated `evo/weather_server.py` and `evo/exchange_rate_server.py` when asked to perform actions that were not initially supported.
+
+A few excerpts from `evo/output.txt` show the interaction clearly:
+
+```text
+Query: What's the weather like in Lisbon?
+I don't currently have weather lookup capability. I'll add it now.
+[Calling tool 'create_file' from server 'evo_server']
+[Native tool 'connect_to_server': Successfully connected to server 'weather'. Its tools are now available.]
+Created weather_server.py, connected weather server, called get_weather for Lisbon.
+```
+
+```text
+Query: Can you get the exchange rate from EUR to USD?
+I don't currently have a tool to fetch exchange rates. I'll create one.
+[Calling tool 'create_file' from server 'evo_server']
+[Native tool 'connect_to_server': Successfully connected to server 'exchange_rate'. Its tools are now available.]
+Created exchange_rate_server.py, connected it, called get_exchange_rate(EUR, USD).
+```
+
 ## What is evolving?
 
 With the base tools provided by the server and the client logic, the system can go beyond its initial capabilities. If a task requires something new, it can create additional MCP server files, connect them at runtime, and start using them immediately.
