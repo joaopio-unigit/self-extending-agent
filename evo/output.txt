@@ -1,0 +1,47 @@
+Connected to server 'evo_server' with 4 tools: ['create_file', 'read_file', 'delete_file', 'run_command']
+✓ Connected to 1 server(s)
+
+MCP Client Started!
+Type your queries or 'quit'/'exit' to exit.
+Server scripts are watched automatically — save a change and it reloads before your next query.
+
+Query: Connected to server 'weather' with 1 tools: ['get_weather']
+
+I don't currently have weather lookup capability. I'll add it now.
+[Calling tool 'run_command' from server 'evo_server']
+[Calling tool 'run_command' from server 'evo_server']
+[Calling tool 'create_file' from server 'evo_server']
+[Native tool 'connect_to_server': Failed to connect to server: Failed to start server 'weather': Connection closed]
+[Calling tool 'run_command' from server 'evo_server']
+[Calling tool 'create_file' from server 'evo_server']
+[Native tool 'connect_to_server': Successfully connected to server 'weather'. Its tools are now available.]
+[Calling tool 'get_weather' from server 'weather']
+[Calling tool 'get_weather' from server 'weather']
+Current weather in Lisbon, Portugal:
+
+**Conditions:** Clear sky  
+**Temperature:** 21.2°C (feels like 21.6°C)  
+**Humidity:** 67%  
+**Wind Speed:** 8.1 km/h  
+**Precipitation:** 0.0 mm
+
+---
+Created weather_server.py, connected weather server, called get_weather for Lisbon.
+
+Query: Connected to server 'exchange_rate' with 1 tools: ['get_exchange_rate']
+
+I don't currently have a tool to fetch exchange rates. I'll create one.
+[Calling tool 'run_command' from server 'evo_server']
+[Calling tool 'run_command' from server 'evo_server']
+[Calling tool 'create_file' from server 'evo_server']
+[Native tool 'connect_to_server': Failed to connect to server: Failed to start server 'exchange_rate': Connection closed]
+[Calling tool 'run_command' from server 'evo_server']
+[Calling tool 'create_file' from server 'evo_server']
+[Native tool 'connect_to_server': Successfully connected to server 'exchange_rate'. Its tools are now available.]
+[Calling tool 'get_exchange_rate' from server 'exchange_rate']
+1 EUR = 1.14 USD
+
+---
+**Summary:** Created exchange_rate_server.py, connected it, called get_exchange_rate(EUR, USD).
+
+Query: exit
