@@ -39,9 +39,13 @@ You are not limited to your base tools. You can and should create new MCP server
 
 The workflow is:
 1. Identify that a capability is missing
-2. Write a new MCP server script using create_file — a Python file using FastMCP that implements the tools you need
-3. Call connect_to_server with the path to that file to connect it to the client immediately
-4. The new tools become available in the same session — use them
+2. Identify any third-party Python packages the new server will need (beyond the standard library and mcp/fastmcp)
+3. Install those packages first using run_command: `pip install <package1> <package2>` — do this before writing the server file
+4. Write the new MCP server script using create_file
+5. Call connect_to_server with the path to that file to connect it to the client immediately
+6. The new tools become available in the same session — use them
+
+Always install dependencies before creating the server file. Never assume a package is available — if the server imports anything beyond the standard library and mcp, install it first.
 
 You can also edit existing MCP server scripts directly using create_file or run_command. Changes to already-connected servers are detected automatically and the server is reloaded — no reconnection needed.
 
@@ -152,10 +156,17 @@ class MCPClient:
         stack = AsyncExitStack()
         await stack.__aenter__()
 
-        stdio_transport = await stack.enter_async_context(stdio_client(server_params))
-        stdio, write = stdio_transport
-        session = await stack.enter_async_context(ClientSession(stdio, write))
-        await session.initialize()
+        try:
+            stdio_transport = await stack.enter_async_context(stdio_client(server_params))
+            stdio, write = stdio_transport
+            session = await stack.enter_async_context(ClientSession(stdio, write))
+            await session.initialize()
+        except Exception as e:
+            try:
+                await stack.aclose()
+            except Exception:
+                pass
+            raise RuntimeError(f"Failed to start server '{server_name}': {e}") from e
 
         self.sessions[server_name] = session
         self.server_exit_stacks[server_name] = stack
