@@ -1,7 +1,7 @@
 [project]
 name = "evo"
 version = "0.1.0"
-description = "An experimental Evolutionary MCP client/server pair that can grow its capabilities by creating and connecting new MCP servers at runtime"
+description = "An experimental self-extending agent that can grow its capabilities by creating and connecting new MCP servers at runtime"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
